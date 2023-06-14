@@ -32,7 +32,8 @@
 .links {
     padding: 0px;
     font-family: 'Ubuntu', sans-serif;
-    text-align: center;
+    text-align: left;
+    padding-left: 45%;
 }
 
 body {
@@ -64,8 +65,7 @@ button:hover {
 .preview {
     max-width: 100%;
 }
-.tomoji {
-    height: 0.75em;
+.icon {
     display: inline;
 }
 .project {
