@@ -26,6 +26,7 @@
     padding: 0px;
     font-family: 'Geologica', sans-serif;
     text-align: center;
+    background-color: rgb(48, 48, 48);
 }
 
 .links {
@@ -36,16 +37,18 @@
 
 body {
     font-family: 'Ubuntu', sans-serif;
-    background-color: rgb(48, 48, 48);
+    background-color: rgb(31, 31, 31);
     color: white;
     text-align: center;
 }
 
 a {
-    color: brown;
+    color: rgb(219, 11, 11);
+    text-decoration: none;
 }
 a:hover {
-    font-weight: bold
+    font-weight: bold;
+    text-decoration: underline;
 }
 button {
     background-color: rgb(55, 55, 55);
