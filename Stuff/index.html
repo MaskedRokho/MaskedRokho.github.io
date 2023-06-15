@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head> 
+    <link rel="stylesheet" href="style.css">
+    <title>MaskRock Website</title>
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Stuff</h1>
+        <h5 style="margin:0;">Random things I coded in Javascipt</h5>
+    </div>
+
+    <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="index.html" class="active">Stuff</a></li>
+    </ul> 
+
+    <h3>Hiding/Unhide</h3>
+    <p id="hideable">Epic</p>
+    <button onclick="hideunhide()">Hide/Unhide</button>
+    <br>
+
+    <h3>Fizzbuzz</h3>
+    <p id="numberCounter">0</p>
+    <p id="fizzBuzzDisplay" >Neither</p>
+    <button onclick="fizzBuzz()">FizzBuzz</button>
+    <br>
+
+    <h3>Can this word be written in Seven-Segment Displays?</h3>
+    <input type="text" id="ssdInput"> </input>
+    <p id="ssdYesOrNo" >Yes</p>
+    <button onclick="sevenSegment()">Check</button>
+    <br>
+
+    <h3>JRPG Rock Paper Scissors</h3>
+    <table style="width: 100%;">
+        <h1 id="battleText"></h1>
+        <h4 id="turnText">Turn Outcome: </h5>
+        <td class="split">
+            <p id="jrpgYouHP" >Your HP:20</p>
+            <p id="jrpgYouMove" >Your Move:</p>
+            <button id ="rockButtons" onclick="rockMove()" class="moveButtons">Rock</button><br>
+            <button id ="paperButtons" onclick="paperMove()" class="moveButtons">Paper</button><br>
+            <button id ="scissorButtons" onclick="scissorMove()" class="moveButtons">Scissors</button><br>
+        </td>
+        <td class="split">
+            <p id="jrpgEnemyHP" >Enemy's HP: 20</p>
+            <p id="jrpgEnemyMove" >Enemy's Move:</p>
+        </td>
+        <button id ="restartButton" onclick="gameRestart()">Restart</button>
+    </table>
+
+</body>
+</html> 
