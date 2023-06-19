@@ -29,6 +29,14 @@
     background-color: rgb(48, 48, 48);
 }
 
+.projectTitle {
+    padding: 0px;
+    font-family: 'Geologica', sans-serif;
+    text-align: center;
+    color: white;
+    font-size:larger
+}
+
 .links {
     padding: 0px;
     font-family: 'Ubuntu', sans-serif;

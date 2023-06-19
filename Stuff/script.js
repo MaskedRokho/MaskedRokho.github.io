@@ -1,16 +1,3 @@
-var visible = true
-
-function hideunhide () {
-    if (visible) {
-        document.getElementById('hideable').style.display='none';
-        visible = false;
-    }
-    else {
-        document.getElementById('hideable').style.display='block';
-        visible = true;
-    }
-};
-
 //Fizzbuzz
 var number = 0
 var display = ""
@@ -48,6 +35,20 @@ function sevenSegment () {
     }
     else {
         ssdYesOrNo.innerHTML = "Yes"
+    }
+};
+
+//Is Even?
+
+function _isEven () {
+    var evenInput = document.getElementById('evenInput');
+    var evenYesOrNo = document.getElementById('evenYesOrNo');
+    var number = evenInput.value
+    if (number % 2 == 0 ) {
+        window.alert("Even")
+    }
+    else {
+        window.alert("not even")
     }
 };
 
