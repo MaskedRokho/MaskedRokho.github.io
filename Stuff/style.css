@@ -68,6 +68,10 @@ ul {
     overflow: auto;
 }
 
+.InputClass {
+    background-color: #3b3b3b;
+}
+
 li a {
     display: block;
     color: rgb(20, 20, 20);
@@ -94,14 +98,15 @@ a:hover {
     text-decoration: underline;
 }
 button {
-    background-color: rgb(55, 55, 55);
-    border: 0px;
-    padding: 5px;
+    background-color: #5c5c5c;
+    border: 1px;
+    padding: 8px;
     font-family: 'Geologica', sans-serif;
     color: white;
+    mix-blend-mode: difference;
 }
 button:hover {
-    background-color: rgb(70, 55, 55);
+    background-color: rgb(58, 58, 58);
 }
 
 .preview {

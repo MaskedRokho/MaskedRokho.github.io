@@ -4,10 +4,29 @@ var display = ""
 const fizzNumber = 3
 const buzzNumber = 5
 
-function fizzBuzz () {
+function fbIncrementUp () {
     var counter = document.getElementById('numberCounter');
-    var fizzBuzzDisplay = document.getElementById('fizzBuzzDisplay');
+
     number += 1
+
+    counter.innerHTML = number
+
+    fizzBuzz()
+};
+
+function fbIncrementDown () {
+    var counter = document.getElementById('numberCounter');
+    
+    number -= 1
+
+    counter.innerHTML = number
+
+    fizzBuzz()
+};
+
+function fizzBuzz () {
+    var fizzBuzzDisplay = document.getElementById('fizzBuzzDisplay');
+
     display = ""
     if (number % fizzNumber == 0) {
         display += "Fizz"
@@ -19,8 +38,8 @@ function fizzBuzz () {
     if (display == "") {
         display = "Neither"
     }
+
     fizzBuzzDisplay.innerHTML = display
-    counter.innerHTML = number
 };
 
 //Seven Segment
@@ -45,10 +64,10 @@ function _isEven () {
     var evenYesOrNo = document.getElementById('evenYesOrNo');
     var number = evenInput.value
     if (number % 2 == 0 ) {
-        window.alert("Even")
+        evenYesOrNo.innerHTML = "Even"
     }
     else {
-        window.alert("not even")
+        evenYesOrNo.innerHTML = "Not Even"
     }
 };
 
