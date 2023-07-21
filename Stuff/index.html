@@ -16,22 +16,10 @@
     </div>
 
     <h3>Fizzbuzz</h3>
-    <p id="numberCounter">0</p>
-    <p id="fizzBuzzDisplay" >Neither</p>
-    <button onclick="fbIncrementUp()">+1</button>
-    <button onclick="fbIncrementDown()">-1</button>
-    <br>
-
-    <h3>Can this word be written in Seven-Segment Displays?</h3>
-    <input type="text" id="ssdInput" class="InputClass"> </input>
-    <p id="ssdYesOrNo" >Yes</p>
-    <button onclick="sevenSegment()">Check</button>
-    <br>
-
-    <h3>Is this even?</h3>
-    <input type="text" id="evenInput" class="InputClass"> </input>
-    <p id="evenYesOrNo" >Yes</p>
-    <button onclick="_isEven()">Check</button>
+        <p id="numberCounter">0</p>
+        <p id="fizzBuzzDisplay" >Neither</p>
+        <button onclick="fbIncrementUp()">+1</button>
+        <button onclick="fbIncrementDown()">-1</button>
     <br>
 
     <h3>JRPG Rock Paper Scissors</h3>
@@ -51,6 +39,22 @@
         </td>
         <button id ="restartButton" onclick="gameRestart()">Restart</button>
     </table>
+
+
+    <h3>Snake</h3>
+        <p id="screenDisplay"></p>
+        <button onclick="sgStart()">Start The Game</button>
+
+        <br>
+        <br>
+        <button onclick="sgUp()">Up</button>
+        <br>
+        <button onclick="sgLeft()">Left</button>
+        <button onclick="sgRight()">Right</button>
+        <br>
+        <button onclick="sgDown()">Down</button>
+
+    <br>
 
 </body>
 </html> 

@@ -212,3 +212,124 @@ function gameRestart () {
     turnText.innerHTML = "Turn Outcome: "
     turnText.style.color = 'white'
 };
+
+
+//Snake Game
+const backgroundLetter = "◼️"
+const playerLetter = "🟩"
+const sgGridSize = 8
+
+var sgDirection = 0
+
+var sgSnakeSize = 10
+
+var sgCurrentPos = 0
+
+var sgScreenSize = sgGridSize * sgGridSize
+
+const sg_screen = new Array(sgScreenSize);
+const sg_snake = new Array(1);
+
+var sgIsGameStarted = false
+
+function sgStart () {
+    sg_snake[0] = 60
+    sgCurrentPos = 60
+
+    sgIsGameStarted = true
+
+    setInterval(sgMove, 500);
+
+    sgDraw()
+}
+
+function sgMove () {
+    
+    //Up
+    if ( sgDirection == 1) {
+        if (sgCurrentPos < sgGridSize) {
+        }
+        else {
+            sgCurrentPos -= sgGridSize
+            if (sg_snake.length > sgSnakeSize ) {
+                sg_snake.shift()
+            }
+        }
+    }
+    //Left
+    else if ( sgDirection == 2) {
+        if (sgCurrentPos % sgGridSize == 0) {
+        }
+        else {
+            sgCurrentPos -= 1
+            if (sg_snake.length > sgSnakeSize ) {
+                sg_snake.shift()
+            }
+        }
+    }
+    //Right
+    else if ( sgDirection == 3) {
+        if (sgCurrentPos % sgGridSize == (sgGridSize - 1)) {
+        }
+        else {
+            sgCurrentPos += 1
+            if (sg_snake.length > sgSnakeSize ) {
+                sg_snake.shift()
+            }
+        }
+    }
+    //Down
+    else if ( sgDirection == 4) {
+        if (sgCurrentPos >= (sgGridSize * (sgGridSize - 1))) {
+        }
+        else {
+            sgCurrentPos += sgGridSize
+            if (sg_snake.length > sgSnakeSize ) {
+                sg_snake.shift()
+            }
+        }
+    }
+    
+    sg_snake.push(sgCurrentPos)
+    
+    sgDraw()
+}
+
+function sgDraw () {
+    var screenDisplay = document.getElementById('screenDisplay')
+
+    screenDisplay.innerHTML = ""
+
+    console.log(sg_snake)
+
+    for (let i = 0; i < sg_screen.length; i++) {
+        sg_screen[i] = backgroundLetter
+    }
+
+    for (let i = 0; i < sg_snake.length; i++) {
+        sg_screen[sg_snake[i]] = playerLetter
+    }
+
+    for(let i = 0; i <sg_screen.length; i++) {
+        if ( i % sgGridSize == 0) {
+            screenDisplay.innerHTML += "<br>"
+        }
+        screenDisplay.innerHTML += sg_screen[i]
+    }
+}
+
+function sgUp () {
+    sgDirection = 1
+}
+
+function sgLeft () {
+    sgDirection = 2
+}
+
+function sgRight () {
+    sgDirection = 3
+}
+
+function sgDown () {
+    sgDirection = 4
+}
