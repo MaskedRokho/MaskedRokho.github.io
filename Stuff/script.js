@@ -232,75 +232,77 @@ const sg_snake = new Array(1);
 
 var sgIsGameStarted = false
 
+var sgInterval
+
 function sgStart () {
+    for (let i = 0; i < sg_snake.length; i++) {
+        sg_snake[i] = playerLetter
+    }
     sg_snake[0] = 60
     sgCurrentPos = 60
 
+    sgDirection = 0
+
     sgIsGameStarted = true
 
-    setInterval(sgMove, 500);
+    sgInterval = setInterval(sgMove, 500);
 
     sgDraw()
 }
 
+function sgStop () {
+    clearInterval(sgInterval);
+}
+
 function sgMove () {
+
+    let sgIsMoving = false
     
     //Up
     if ( sgDirection == 1) {
-        if (sgCurrentPos < sgGridSize) {
-        }
-        else {
+        if (sgCheckFront()) {
             sgCurrentPos -= sgGridSize
-            if (sg_snake.length > sgSnakeSize ) {
-                sg_snake.shift()
-            }
+            sgIsMoving = true
         }
     }
     //Left
     else if ( sgDirection == 2) {
-        if (sgCurrentPos % sgGridSize == 0) {
-        }
-        else {
+        if (sgCheckFront()) {
             sgCurrentPos -= 1
-            if (sg_snake.length > sgSnakeSize ) {
-                sg_snake.shift()
-            }
+            sgIsMoving = true
         }
     }
     //Right
     else if ( sgDirection == 3) {
-        if (sgCurrentPos % sgGridSize == (sgGridSize - 1)) {
-        }
-        else {
+        if (sgCheckFront()) {
             sgCurrentPos += 1
-            if (sg_snake.length > sgSnakeSize ) {
-                sg_snake.shift()
-            }
+            sgIsMoving = true
         }
     }
     //Down
     else if ( sgDirection == 4) {
-        if (sgCurrentPos >= (sgGridSize * (sgGridSize - 1))) {
-        }
-        else {
+        if (sgCheckFront()) {
             sgCurrentPos += sgGridSize
-            if (sg_snake.length > sgSnakeSize ) {
-                sg_snake.shift()
-            }
+            sgIsMoving = true
+        }
+    }
+
+    if (sgIsMoving) {
+        sg_snake.push(sgCurrentPos)
+        while (sg_snake.length > sgSnakeSize ) {
+            sg_snake.shift()
         }
     }
     
-    sg_snake.push(sgCurrentPos)
-    
     sgDraw()
+    console.log(sgCheckFront())
+    console.log(sgCurrentPos)
 }
 
 function sgDraw () {
     var screenDisplay = document.getElementById('screenDisplay')
 
     screenDisplay.innerHTML = ""
-
-    console.log(sg_snake)
 
     for (let i = 0; i < sg_screen.length; i++) {
         sg_screen[i] = backgroundLetter
@@ -315,6 +317,45 @@ function sgDraw () {
             screenDisplay.innerHTML += "<br>"
         }
         screenDisplay.innerHTML += sg_screen[i]
+    }
+}
+
+function sgCheckFront () {
+    //Up
+    if ( sgDirection == 1) {
+        if (sg_screen[sgCurrentPos - sgGridSize] != backgroundLetter || sgCurrentPos < 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    //Left
+    else if ( sgDirection == 2) {
+        if (sg_screen[sgCurrentPos - 1] != backgroundLetter || sgCurrentPos % sgGridSize == 0 ) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    //Right
+    else if ( sgDirection == 3) {
+        if (sg_screen[sgCurrentPos + 1] != backgroundLetter || sgCurrentPos % sgGridSize == (sgGridSize - 1)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    //Down
+    else if ( sgDirection == 4) {
+        if (sg_screen[sgCurrentPos + sgGridSize] != backgroundLetter || sgCurrentPos > (sgGridSize * (sgGridSize - 1))) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }
 
