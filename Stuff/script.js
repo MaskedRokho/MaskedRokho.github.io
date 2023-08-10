@@ -57,17 +57,40 @@ function sevenSegment () {
     }
 };
 
-//Is Even?
+//Breaking down numbers
 
-function _isEven () {
-    var evenInput = document.getElementById('evenInput');
-    var evenYesOrNo = document.getElementById('evenYesOrNo');
-    var number = evenInput.value
-    if (number % 2 == 0 ) {
-        evenYesOrNo.innerHTML = "Even"
+function _breakDownNumber () {
+    var bdInput = document.getElementById('bdInput');
+    var bdOutPut = document.getElementById('bdOutPut');
+    var inputNumber = bdInput.value
+    bdOutPut.innerHTML = _breakDownNumberMath(inputNumber)
+};
+
+function _breakDownNumberMath (inputNumber) {
+    var outputNumber1
+    var outputNumber2
+    if (Math.sqrt(inputNumber) == Math.round(Math.sqrt(inputNumber))) {
+        return(Math.sqrt(inputNumber) + ", " + Math.sqrt(inputNumber))
     }
     else {
-        evenYesOrNo.innerHTML = "Not Even"
+        for (let i = 2; i < inputNumber; i++) {
+            if ( inputNumber % i == 0 ) {
+                outputNumber1 = i
+                outputNumber2 = inputNumber / i
+                if ( typeof outputNumber1 == 'undefined' || typeof outputNumber2 == 'undefined' ) {
+                    return("Error: One of the Output numbers is undefined, but not both. " + outputNumber1 +", " + outputNumber2)
+                }
+                else {
+                    return(outputNumber1 + ", " + outputNumber2)
+                }
+            }
+            console.log(i + ", " + inputNumber / i)
+        }
+        if (typeof outputNumber1 == 'undefined' && typeof outputNumber2 == 'undefined') {
+            return("Cannot be broken down as it is a prime number.")
+        }
+
+        return("Error: Unknown/Unhandled error")
     }
 };
 
