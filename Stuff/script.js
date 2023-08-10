@@ -257,35 +257,27 @@ function sgStop () {
 function sgMove () {
 
     let sgIsMoving = false
-    
-    //Up
-    if ( sgDirection == 1) {
-        if (sgCheckFront()) {
+
+    if (sgCheckFront()) {
+        //Up
+        if ( sgDirection == 1) {
             sgCurrentPos -= sgGridSize
-            sgIsMoving = true
         }
-    }
-    //Left
-    else if ( sgDirection == 2) {
-        if (sgCheckFront()) {
+        //Left
+        else if ( sgDirection == 2) {
             sgCurrentPos -= 1
-            sgIsMoving = true
         }
-    }
-    //Right
-    else if ( sgDirection == 3) {
-        if (sgCheckFront()) {
+        //Right
+        else if ( sgDirection == 3) {
             sgCurrentPos += 1
-            sgIsMoving = true
         }
-    }
-    //Down
-    else if ( sgDirection == 4) {
-        if (sgCheckFront()) {
+        //Down
+        else if ( sgDirection == 4) {
             sgCurrentPos += sgGridSize
-            sgIsMoving = true
         }
+        sgIsMoving = true
     }
+    
 
     if (sgIsMoving) {
         sg_snake.push(sgCurrentPos)
