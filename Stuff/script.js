@@ -74,7 +74,7 @@ function _breakDownNumberMath (inputNumber) {
     }
     else {
         for (let i = 2; i < inputNumber; i++) {
-            if ( inputNumber % i == 0 ) {
+            if ( inputNumber % i == 0 && _breakDownNumberCheck(inputNumber / i)) {
                 outputNumber1 = i
                 outputNumber2 = inputNumber / i
                 if ( typeof outputNumber1 == 'undefined' || typeof outputNumber2 == 'undefined' ) {
@@ -84,7 +84,6 @@ function _breakDownNumberMath (inputNumber) {
                     return(outputNumber1 + ", " + outputNumber2)
                 }
             }
-            console.log(i + ", " + inputNumber / i)
         }
         if (typeof outputNumber1 == 'undefined' && typeof outputNumber2 == 'undefined') {
             return("Cannot be broken down as it is a prime number.")
@@ -92,6 +91,21 @@ function _breakDownNumberMath (inputNumber) {
 
         return("Error: Unknown/Unhandled error")
     }
+};
+
+function _breakDownNumberCheck (inputNumber) {
+    if (Math.sqrt(inputNumber) == Math.round(Math.sqrt(inputNumber))) {
+        return(false)
+    }
+    else {
+        for (let i = 2; i < inputNumber; i++) {
+            if ( inputNumber % i == 0 ) {
+                return(false)
+            }
+            console.log(inputNumber + ":0 " + i + ", " + inputNumber / i + ", " + inputNumber % i)
+        }
+    }
+    return(true)
 };
 
 //Rock Paper Scissors
