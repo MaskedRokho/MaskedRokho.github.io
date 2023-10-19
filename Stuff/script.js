@@ -252,154 +252,181 @@ function gameRestart () {
 
 
 //Snake Game
-const backgroundLetter = "◼️"
-const playerLetter = "🟩"
-const sgGridSize = 8
+const backgroundCharacter = "B"
+const snakeCharacter = "P"
+const appleCharacter = "A"
+const backgroundDisplay = "◼️"
+const snakeDisplay = "🟩"
+const appleDisplay = "🍎"
 
-var sgDirection = 0
+const screenSize = 16
+const gridSize = screenSize * screenSize
 
-var sgSnakeSize = 10
+var snakeSize = 1
+var snakeDirection = 0
+var snakeHeadPosition = (gridSize / 2) + (screenSize / 2)
+var applePosition
 
-var sgCurrentPos = 0
+const gameScreen = new Array(gridSize)
+const snakePos = new Array(snakeSize)
 
-var sgScreenSize = sgGridSize * sgGridSize
+var timeInterval
 
-const sg_screen = new Array(sgScreenSize);
-const sg_snake = new Array(1);
+function sgStart() {
+    snakeHeadPosition = (gridSize / 2) + (screenSize / 2)
+    snakeSize = 1
+    snakeDirection = 0
 
-var sgIsGameStarted = false
-
-var sgInterval
-
-function sgStart () {
-    for (let i = 0; i < sg_snake.length; i++) {
-        sg_snake[i] = playerLetter
+    while (gameScreen.length > gridSize) {
+        gameScreen.shift()
     }
-    sg_snake[0] = 60
-    sgCurrentPos = 60
 
-    sgDirection = 0
 
-    sgIsGameStarted = true
+    for (let i = 0; i < snakePos.length; i++ ) {
+        snakePos[i] = snakeHeadPosition
+    }
+    clearInterval(timeInterval)
 
-    sgInterval = setInterval(sgMove, 500);
+    timeInterval = setInterval(sgMove, 500);
+
+
+    sgSpawnApple()
+    sgDraw()
+}
+
+function sgStop() {
+    clearInterval(timeInterval)
+}
+
+function sgSpawnApple() {
+    let random = Math.floor((Math.random() * gridSize))
+
+    if (!snakePos.includes(random)) {
+        applePosition = random
+    }
+}
+
+function sgMove() {
+
+    let isMoving = false
+
+    if (sgCheck() == true) {
+        if (snakeDirection == 1) { //UP
+            snakeHeadPosition -= screenSize
+        }
+        else if (snakeDirection == 2) { //Right
+            snakeHeadPosition += 1
+        }
+        else if (snakeDirection == 3) { //Down
+            snakeHeadPosition += screenSize
+        }
+        else if (snakeDirection == 4) { //Left
+            snakeHeadPosition -= 1
+        }
+        isMoving = true
+    }
+
+    if (isMoving == true) {
+        snakePos.push(snakeHeadPosition)
+
+        while (snakePos.length > snakeSize) {
+            snakePos.shift()
+        }
+    }
+
+    if (snakePos.includes(applePosition)) {
+        snakeSize += 1
+        sgSpawnApple()
+    }
+
+    console.log((snakeHeadPosition - 1) % screenSize)
 
     sgDraw()
 }
 
-function sgStop () {
-    clearInterval(sgInterval);
-}
-
-function sgMove () {
-
-    let sgIsMoving = false
-
-    if (sgCheckFront()) {
-        //Up
-        if ( sgDirection == 1) {
-            sgCurrentPos -= sgGridSize
+function sgCheck() {
+    if (snakeDirection == 1) { //UP
+        if (snakeHeadPosition - screenSize >= 0 && gameScreen[snakeHeadPosition - screenSize] != snakeCharacter) {
+            return true
         }
-        //Left
-        else if ( sgDirection == 2) {
-            sgCurrentPos -= 1
-        }
-        //Right
-        else if ( sgDirection == 3) {
-            sgCurrentPos += 1
-        }
-        //Down
-        else if ( sgDirection == 4) {
-            sgCurrentPos += sgGridSize
-        }
-        sgIsMoving = true
-    }
-    
-
-    if (sgIsMoving) {
-        sg_snake.push(sgCurrentPos)
-        while (sg_snake.length > sgSnakeSize ) {
-            sg_snake.shift()
+        else {
+            return false
         }
     }
-    
-    sgDraw()
-    console.log(sgCheckFront())
-    console.log(sgCurrentPos)
+    else if (snakeDirection == 2) { //Right
+        if ((snakeHeadPosition + 1) % screenSize != 0 && gameScreen[snakeHeadPosition + 1] != snakeCharacter) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    else if (snakeDirection == 3) { //Down
+        if (snakeHeadPosition + screenSize <= gridSize && gameScreen[snakeHeadPosition + screenSize] != snakeCharacter) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    else if (snakeDirection == 4) { //Left
+        if ((snakeHeadPosition - 1) % screenSize != (screenSize - 1) && gameScreen[snakeHeadPosition - 1]  != snakeCharacter) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    else { 
+        return false
+    }
 }
-
-function sgDraw () {
+function sgDraw() {
+    var scoreBoard = document.getElementById('scoreBoard')
     var screenDisplay = document.getElementById('screenDisplay')
 
+    scoreBoard.innerHTML = "Score: " + snakeSize
+
     screenDisplay.innerHTML = ""
-
-    for (let i = 0; i < sg_screen.length; i++) {
-        sg_screen[i] = backgroundLetter
+    
+    for (let i = 0; i < gameScreen.length; i++) {
+        gameScreen[i] = backgroundCharacter
     }
 
-    for (let i = 0; i < sg_snake.length; i++) {
-        sg_screen[sg_snake[i]] = playerLetter
+    gameScreen[applePosition] = appleCharacter
+
+    for (let i = 0; i < snakePos.length; i++) {
+        gameScreen[snakePos[i]] = snakeCharacter
     }
 
-    for(let i = 0; i <sg_screen.length; i++) {
-        if ( i % sgGridSize == 0) {
+    for (let i = 0; i < gameScreen.length; i++) {
+        if (i % screenSize == 0) {
             screenDisplay.innerHTML += "<br>"
         }
-        screenDisplay.innerHTML += sg_screen[i]
-    }
-}
-
-function sgCheckFront () {
-    //Up
-    if ( sgDirection == 1) {
-        if (sg_screen[sgCurrentPos - sgGridSize] != backgroundLetter || sgCurrentPos < 0) {
-            return false;
+        if (gameScreen[i] == backgroundCharacter) {
+            screenDisplay.innerHTML += backgroundDisplay
         }
-        else {
-            return true;
+        else if (gameScreen[i] == snakeCharacter) {
+            screenDisplay.innerHTML += snakeDisplay
         }
-    }
-    //Left
-    else if ( sgDirection == 2) {
-        if (sg_screen[sgCurrentPos - 1] != backgroundLetter || sgCurrentPos % sgGridSize == 0 ) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    //Right
-    else if ( sgDirection == 3) {
-        if (sg_screen[sgCurrentPos + 1] != backgroundLetter || sgCurrentPos % sgGridSize == (sgGridSize - 1)) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    //Down
-    else if ( sgDirection == 4) {
-        if (sg_screen[sgCurrentPos + sgGridSize] != backgroundLetter || sgCurrentPos > (sgGridSize * (sgGridSize - 1))) {
-            return false;
-        }
-        else {
-            return true;
+        else if (gameScreen[i] == appleCharacter) {
+            screenDisplay.innerHTML += appleDisplay
         }
     }
 }
 
-function sgUp () {
-    sgDirection = 1
+function sgUp() {
+    snakeDirection = 1
 }
 
-function sgLeft () {
-    sgDirection = 2
+function sgRight() {
+    snakeDirection = 2
 }
 
-function sgRight () {
-    sgDirection = 3
+function sgDown() {
+    snakeDirection = 3
 }
 
-function sgDown () {
-    sgDirection = 4
+function sgLeft() {
+    snakeDirection = 4
 }
